@@ -9,30 +9,21 @@ def get_routes(local_filename):
     r=requests.get(url)
     return r.json()['data']
 
-def create_dir_or_clear(dest_folder):
-    if not os.path.exists(dest_folder):
-            os.mkdir(dest_folder)
-    else:
-        for file in os.listdir(dest_folder):
-            os.remove(os.path.join(dest_folder, file))
-
 
 start = time.time()
 
-name = 'ubuntu.iso'
+name = 'test.mp4'
 
 names_routes = 'split-{}'.format(name)
-file_name = 'join-{}'.format(name)
 
 chunks = get_routes(names_routes)
-
-create_dir_or_clear(names_routes)
-
 
 chunk_size = 256*1024
 source = names_routes
 
-output_file = open(name, 'wb')
+fil = os.path.join('download', 'chunkie',name)
+
+output_file = open(fil, 'wb')
 
 
 for c in chunks:
